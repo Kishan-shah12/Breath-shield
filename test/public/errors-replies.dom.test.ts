@@ -16,8 +16,8 @@ const errorLinks = (): string[] =>
   [...byId('error-list').querySelectorAll('li')].map((li) => li.textContent);
 
 it('reports a reply it cannot render as a general problem, not a blank page', async () => {
-  const hollow = { place: {}, air: {}, totals: {}, recommendations: [], findings: [] };
-  stubFetch(okReply(hollow));
+  stubFetch(okReply(planReply()));
+  byId('air-place').remove();
   inputEl('place').value = 'Delhi';
   submit();
   await settled();

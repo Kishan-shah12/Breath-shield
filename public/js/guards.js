@@ -4,22 +4,23 @@ import { CATEGORIES } from './shared/options.js';
 
 /** @typedef {import('../../src/features/plan/view').PlanView} PlanView */
 /** @typedef {import('../../src/features/assistant/types').Narrative} Narrative */
+/** @typedef {Record<string, unknown>} Rec */
+/** @typedef {(v: unknown) => boolean} C */
+/** @typedef {(v: Rec) => boolean} CR */
 
-/** @param {unknown} v @returns {v is Record<string, unknown>} */
+/** @param {unknown} v @returns {v is Rec} */
 const record = (v) => typeof v === 'object' && v !== null && !Array.isArray(v);
 /** @param {unknown} v @returns {v is string} */
 const isString = (v) => typeof v === 'string';
 /** @param {unknown} v @returns {v is number} */
 const finite = (v) => typeof v === 'number' && Number.isFinite(v);
-/** @param {unknown} v @returns {v is Record<string, unknown>} */
+/** @param {unknown} v @returns {v is Rec} */
 const impact = (v) =>
-  record(v) &&
-  finite(v.inhaledAvoidedUg) &&
-  finite(v.notEmittedG) &&
-  finite(v.co2eSavedKg);
-/** @param {unknown} v */
+  record(v) && finite(v.inhaledAvoidedUg) && finite(v.notEmittedG) && finite(v.co2eSavedKg);
+
+/** @type {C} */
 const hourView = (v) => record(v) && isString(v.time) && finite(v.pm25);
-/** @param {unknown} v */
+/** @type {C} */
 const factor = (v) =>
   record(v) &&
   isString(v.label) &&
@@ -27,65 +28,76 @@ const factor = (v) =>
   isString(v.unit) &&
   (v.kind === 'published' || v.kind === 'assumption') &&
   isString(v.source);
-/** @param {unknown} v */
+
+/** @type {C} */
+const isCategory = (v) => CATEGORIES.some((c) => c === v);
+/** @type {C} */
+const isStatus = (v) => v === 'new' || v === 'keep';
+/** @type {CR} */
+const recText = (v) =>
+  isString(v.title) && isString(v.action) && isString(v.calculation) && isString(v.impactText);
+/** @type {C} */
 const recommendationView = (v) =>
   record(v) &&
   isString(v.id) &&
-  CATEGORIES.some((category) => category === v.category) &&
-  (v.status === 'new' || v.status === 'keep') &&
-  isString(v.title) &&
-  isString(v.action) &&
+  isCategory(v.category) &&
+  isStatus(v.status) &&
+  recText(v) &&
   impact(v.impact) &&
-  isString(v.calculation) &&
-  isString(v.impactText) &&
   Array.isArray(v.factors) &&
   v.factors.every(factor);
-/** @param {unknown} v */
+
+/** @type {C} */
+const isField = (v) => v === 'place' || v === 'notes';
+/** @type {C} */
 const finding = (v) =>
   record(v) &&
-  (v.field === 'place' || v.field === 'notes') &&
+  isField(v.field) &&
   isString(v.kind) &&
   isString(v.detail) &&
   isString(v.excerpt) &&
-  finite(v.offset) &&
   Number.isInteger(v.offset) &&
-  v.offset >= 0;
-/** @param {unknown} v */
+  Number(v.offset) >= 0;
+
+/** @type {C} */
+const aqiBand = (v) =>
+  record(v) &&
+  isString(v.key) &&
+  ['good', 'moderate', 'sensitive', 'unhealthy', 'very-unhealthy', 'hazardous'].includes(v.key) &&
+  isString(v.label) &&
+  isString(v.symbol);
+
+/** @type {C} */
+const isSource = (v) => v === 'live' || v === 'typical';
+/** @type {CR} */
+const airForecast = (v) =>
+  hourView(v.best) && hourView(v.worst) && Array.isArray(v.hours) && v.hours.every(hourView);
+/** @type {C} */
 const airView = (v) =>
   record(v) &&
-  (v.source === 'live' || v.source === 'typical') &&
+  isSource(v.source) &&
   finite(v.aqi) &&
-  record(v.band) &&
-  isString(v.band.key) &&
-  ['good', 'moderate', 'sensitive', 'unhealthy', 'very-unhealthy', 'hazardous'].includes(
-    v.band.key,
-  ) &&
-  isString(v.band.label) &&
-  isString(v.band.symbol) &&
+  aqiBand(v.band) &&
   finite(v.pm25) &&
   finite(v.pm10) &&
   isString(v.dominant) &&
-  hourView(v.best) &&
-  hourView(v.worst) &&
-  Array.isArray(v.hours) &&
-  v.hours.every(hourView);
+  airForecast(v);
+
+/** @type {C} */
+const place = (v) => record(v) && isString(v.name) && isString(v.region);
+/** @type {CR} */
+const planItems = (d) =>
+  place(d.place) &&
+  impact(d.totals) &&
+  finite(d.totals.outdoorMinutes) &&
+  Array.isArray(d.recommendations) &&
+  d.recommendations.every(recommendationView) &&
+  Array.isArray(d.findings) &&
+  d.findings.every(finding);
 
 /** @param {unknown} data @returns {data is PlanView} */
 export function isPlanView(data) {
-  return (
-    record(data) &&
-    record(data.place) &&
-    isString(data.place.name) &&
-    isString(data.place.region) &&
-    airView(data.air) &&
-    isString(data.advisory) &&
-    Array.isArray(data.recommendations) &&
-    data.recommendations.every(recommendationView) &&
-    impact(data.totals) &&
-    finite(data.totals.outdoorMinutes) &&
-    Array.isArray(data.findings) &&
-    data.findings.every(finding)
-  );
+  return record(data) && airView(data.air) && isString(data.advisory) && planItems(data);
 }
 
 /** @param {unknown} data @returns {data is Narrative} */
