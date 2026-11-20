@@ -1,4 +1,6 @@
-/** Contract tests for the nested `/api/assistant` response guard. */
+/**
+ * Contract tests for the nested `/api/assistant` response guard.
+ */
 import { expect, it } from 'vitest';
 import { isNarrative } from '../../public/js/guards.js';
 import { replaceAt, validNarrative } from '../support/guard-fixtures.dom';

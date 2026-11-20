@@ -1,4 +1,6 @@
-/** Contract tests for the nested `/api/plan` response guard. */
+/**
+ * Contract tests for the nested `/api/plan` response guard.
+ */
 import { expect, it } from 'vitest';
 import { isPlanView } from '../../public/js/guards.js';
 import { replaceAt, validPlan } from '../support/guard-fixtures.dom';

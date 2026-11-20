@@ -1,4 +1,7 @@
-/** Valid API fixtures and a safe nested-value replacement helper for guard tests. */
+/**
+ * Valid API fixtures and a safe nested-value replacement helper for guard tests.
+ */
+
 /** A complete `/api/plan` payload accepted by the browser contract. */
 export const validPlan = {
   place: { name: 'Delhi', region: 'Delhi, India' },
@@ -49,6 +52,11 @@ export const validNarrative = {
   encouragement: 'Small changes can make a useful difference.',
 };
 
+/** True when `value` is an array of unknown values. */
+function isUnknownArray(value: unknown): value is readonly unknown[] {
+  return Array.isArray(value);
+}
+
 /** Return a copy of `source` with one nested property replaced, without type assertions. */
 export function replaceAt(
   source: unknown,
@@ -57,7 +65,7 @@ export function replaceAt(
 ): unknown {
   const [head, ...tail] = path;
   if (head === undefined) return replacement;
-  if (Array.isArray(source))
+  if (isUnknownArray(source))
     return source.map((item, index) =>
       index === head ? replaceAt(item, tail, replacement) : item,
     );

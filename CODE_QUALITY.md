@@ -78,16 +78,16 @@ repository's convention test enforces the 3.5 KB source-module limit and the
 layer test prevents imports from crossing feature boundaries. A short module is
 worth keeping when it isolates one independently understandable behaviour; it
 should be combined with another module when the boundary adds navigation cost
-without a meaningful dependency or testing benefit. File length by itself is
-not treated as a measure of maintainability.
+without a meaningful dependency or testing benefit. File length by itself is not
+treated as a measure of maintainability.
 
 ## Frontend response contracts
 
 The page receives JSON, which is untrusted at runtime even though the Worker
 itself is written in TypeScript. `public/js/guards.js` validates every field the
 renderers read from `/api/plan` and `/api/assistant`, including recommendation
-impacts, factors, hourly readings, findings and every narrative explanation.
-The category check reuses the generated `CATEGORIES` list from
+impacts, factors, hourly readings, findings and every narrative explanation. The
+category check reuses the generated `CATEGORIES` list from
 `src/config/options.ts`, so the browser does not maintain a second category
 allow-list. Guard regression tests live in `test/public/guards-*.dom.test.ts`.
 
@@ -103,10 +103,10 @@ or type-safety defect.
 
 The repository publishes only metrics that its checks can reproduce: lint
 limits, TypeScript/JSDoc checks, and the coverage thresholds below. It does not
-currently calculate a repository-wide duplication percentage, average
-cyclomatic complexity or Maintainability Index, so no values for those metrics
-are claimed here. Add such a metric only with a named tool, a reproducible
-command and output from this exact revision.
+currently calculate a repository-wide duplication percentage, average cyclomatic
+complexity or Maintainability Index, so no values for those metrics are claimed
+here. Add such a metric only with a named tool, a reproducible command and
+output from this exact revision.
 
 ## Limits enforced by lint
 
