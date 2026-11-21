@@ -54,12 +54,17 @@ export function memoryStorage(): Pick<Storage, 'getItem' | 'setItem'> {
 
 /** The shipped markup as the document, with the stylesheet inlined on request. */
 export function mountPage(withCss = false): void {
-  const html = shipped('index.html')
-    .replace(/^[\s\S]*?<html[^>]*>/, '')
-    .replace(/<script\b[^>]*><\/script>/g, '')
-    .replace(/<link rel="stylesheet"[^>]*>/g, '');
-  document.documentElement.innerHTML = html;
-  document.documentElement.lang = 'en';
+  const parsed = new DOMParser().parseFromString(shipped('index.html'), 'text/html');
+  for (const script of parsed.querySelectorAll('script')) {
+    script.remove();
+  }
+  for (const link of parsed.querySelectorAll('link[rel="stylesheet"]')) {
+    link.remove();
+  }
+  const importedHead = document.importNode(parsed.head, true);
+  const importedBody = document.importNode(parsed.body, true);
+  document.documentElement.replaceChildren(importedHead, importedBody);
+  document.documentElement.lang = parsed.documentElement.lang || 'en';
   document.documentElement.removeAttribute('data-theme');
   if (!withCss) return;
   const style = document.createElement('style');
