@@ -54,30 +54,6 @@
   font-size: 2rem;
   line-height: 1;
 }
-.band--good {
-  --band-colour: var(--band-good);
-  --band-bg: var(--band-good-bg);
-}
-.band--moderate {
-  --band-colour: var(--band-moderate);
-  --band-bg: var(--band-moderate-bg);
-}
-.band--sensitive {
-  --band-colour: var(--band-sensitive);
-  --band-bg: var(--band-sensitive-bg);
-}
-.band--unhealthy {
-  --band-colour: var(--band-unhealthy);
-  --band-bg: var(--band-unhealthy-bg);
-}
-.band--very-unhealthy {
-  --band-colour: var(--band-very-unhealthy);
-  --band-bg: var(--band-very-unhealthy-bg);
-}
-.band--hazardous {
-  --band-colour: var(--band-hazardous);
-  --band-bg: var(--band-hazardous-bg);
-}
 
 .readings,
 .totals {
@@ -107,6 +83,27 @@ dd {
   font-size: 1.35rem;
   color: var(--accent);
   overflow-wrap: anywhere;
+}
+
+#air {
+  border-top: 4px solid var(--accent);
+}
+section[aria-labelledby='assistant-h'] {
+  border-top: 4px solid var(--band-very-unhealthy);
+}
+section[aria-labelledby='assistant-h'] h3,
+.encouragement {
+  color: var(--band-very-unhealthy);
+}
+.encouragement {
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+section[aria-labelledby='impact-h'] {
+  border-top: 4px solid var(--band-good);
+}
+section[aria-labelledby='impact-h'] dd {
+  color: var(--band-good);
 }
 
 .table-scroll {
@@ -144,12 +141,6 @@ tbody tr:hover {
   margin-top: 0;
 }
 
-.encouragement {
-  font-weight: 700;
-  color: var(--accent);
-  font-size: 1.15rem;
-}
-
 .recs {
   list-style: none;
   padding: 0;
@@ -178,18 +169,34 @@ tbody tr:hover {
   border-radius: 8px;
   font-weight: 600;
 }
+
+#list-indoor .rec,
+#list-indoor .rec__impact {
+  border-left-color: var(--band-good);
+}
+#list-indoor .rec__title {
+  color: var(--band-good);
+}
+#list-alternative .rec,
+#list-alternative .rec__impact {
+  border-left-color: var(--band-moderate);
+}
+#list-alternative .rec__title {
+  color: var(--band-moderate);
+}
+
 .rec__calc {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 1.0625rem;
   overflow-wrap: anywhere;
 }
-.rec__factors {
-  padding-left: 1.2rem;
-  color: var(--ink-soft);
-  font-size: 1.0625rem;
-}
+.rec__factors,
 .rec__empty {
   color: var(--ink-soft);
+}
+.rec__factors {
+  padding-left: 1.2rem;
+  font-size: 1.0625rem;
 }
 
 @media print {

@@ -2,22 +2,22 @@
    Every colour pair used on the page is checked for WCAG contrast in
    test/contrast.dom.test.ts, in both themes. */
 :root {
-  --surface-0: #fbfaf7;
+  --surface-0: #f3f8fc;
   --surface-1: #ffffff;
-  --surface-2: #f1efe9;
-  --ink: #1b1f24;
-  --ink-soft: #46515c;
-  --accent: #0b6b5d;
-  --accent-strong: #084f45;
+  --surface-2: #e5f0f8;
+  --ink: #0b1c2d;
+  --ink-soft: #3f566e;
+  --accent: #00629b;
+  --accent-strong: #004770;
   --on-accent: #ffffff;
-  --field-border: #66707b;
-  --field-border-hover: #1b1f24;
-  --focus: #0b57d0;
+  --field-border: #5f788f;
+  --field-border-hover: #0b1c2d;
+  --focus: #0056b3;
   --error: #b3261e;
   --error-bg: #fdecea;
   --notice-bg: #fff4d6;
-  --band-good: #1a7f37;
-  --band-good-bg: #e3f4e8;
+  --band-good: #127c36;
+  --band-good-bg: #e1f5e8;
   --band-moderate: #7a5600;
   --band-moderate-bg: #fff5cc;
   --band-sensitive: #a34a00;
@@ -37,17 +37,17 @@
 }
 
 :root[data-theme='dark'] {
-  --surface-0: #101418;
-  --surface-1: #171c22;
-  --surface-2: #1f262e;
-  --ink: #eef1f4;
-  --ink-soft: #b9c3cd;
-  --accent: #62d2bf;
-  --accent-strong: #8fe3d4;
-  --on-accent: #06211d;
-  --field-border: #8d98a4;
-  --field-border-hover: #eef1f4;
-  --focus: #9cc2ff;
+  --surface-0: #0a131c;
+  --surface-1: #111e2b;
+  --surface-2: #192b3d;
+  --ink: #eaf3fb;
+  --ink-soft: #a6c4de;
+  --accent: #48b4f4;
+  --accent-strong: #78cdff;
+  --on-accent: #041828;
+  --field-border: #759ab8;
+  --field-border-hover: #eaf3fb;
+  --focus: #7cc3ff;
   --error: #ffb4ab;
   --error-bg: #3a1512;
   --notice-bg: #33290a;
@@ -63,4 +63,29 @@
   --band-very-unhealthy-bg: #2c1838;
   --band-hazardous: #ffa3b8;
   --band-hazardous-bg: #3a0f1a;
+}
+
+.band--good {
+  --band-colour: var(--band-good);
+  --band-bg: var(--band-good-bg);
+}
+.band--moderate {
+  --band-colour: var(--band-moderate);
+  --band-bg: var(--band-moderate-bg);
+}
+.band--sensitive {
+  --band-colour: var(--band-sensitive);
+  --band-bg: var(--band-sensitive-bg);
+}
+.band--unhealthy {
+  --band-colour: var(--band-unhealthy);
+  --band-bg: var(--band-unhealthy-bg);
+}
+.band--very-unhealthy {
+  --band-colour: var(--band-very-unhealthy);
+  --band-bg: var(--band-very-unhealthy-bg);
+}
+.band--hazardous {
+  --band-colour: var(--band-hazardous);
+  --band-bg: var(--band-hazardous-bg);
 }
