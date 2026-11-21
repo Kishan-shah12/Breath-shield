@@ -32,7 +32,7 @@ function summaryItem({ field, message }) {
     return item;
   }
   const link = document.createElement('a');
-  link.href = `#${field}`;
+  link.href = `#${encodeURIComponent(control.id)}`;
   link.textContent = message;
   link.addEventListener('click', (event) => {
     event.preventDefault();
@@ -40,7 +40,7 @@ function summaryItem({ field, message }) {
   });
   item.append(link);
   control.setAttribute('aria-invalid', 'true');
-  const slot = document.getElementById(`${field}-error`);
+  const slot = document.getElementById(`${encodeURIComponent(control.id)}-error`);
   if (slot) slot.textContent = message;
   return item;
 }
