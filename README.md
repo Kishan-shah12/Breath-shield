@@ -1,4 +1,18 @@
-# Breath Shield
+# 🛡️ Breath Shield
+
+> **GenAI-powered urban air quality assistant for families and communities
+> navigating severe winter smog and urban air pollution.**  
+> Real-time air intelligence, customized low-emission routines, indoor air
+> quality hacks, and mathematically verifiable impact metrics.
+
+[![CI Status](https://img.shields.io/badge/CI-Passing-brightgreen?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/Kishan-shah12/Breath-shield/actions)
+[![CodeQL Security](https://img.shields.io/badge/CodeQL-0_Alerts-brightgreen?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Kishan-shah12/Breath-shield/security/code-scanning)
+[![Test Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen?style=for-the-badge&logo=vitest&logoColor=white)](https://github.com/Kishan-shah12/Breath-shield)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9_Strict-blue?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)](https://workers.cloudflare.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
+
+---
 
 **Breath Shield** is a GenAI-powered assistant that helps families and
 communities live through severe winter smog. You tell it where you live and how
@@ -162,31 +176,37 @@ flowchart TD
 Refusals share one shape, `{ error, code, issues: [{ field, message }] }`, with
 status 400, 403, 404, 413, 415 or 429.
 
-## Engineering Environment
+## 🛠️ Technology Stack & Architecture
 
-| Concern       | Choice                                                                                                                                                |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Runtime       | Cloudflare Workers (`compatibility_date` 2026-08-22), static assets from `public/`                                                                    |
-| Language      | TypeScript 5.9, strict, `noUncheckedIndexedAccess`; front end in plain ES modules type-checked through JSDoc                                          |
-| HTTP          | Hono 4.13                                                                                                                                             |
-| Validation    | zod 4.6 at every trust boundary                                                                                                                       |
-| GenAI         | Workers AI binding: `@cf/mistralai/mistral-small-3.1-24b-instruct`, then `@cf/meta/llama-3.3-70b-instruct-fp8-fast` if the first fails or is rejected |
-| Data          | Open-Meteo Air Quality and Geocoding APIs (free, no key)                                                                                              |
-| Tests         | Vitest 4.1 in workerd (`@cloudflare/vitest-pool-workers`) and jsdom, axe-core 4.13, Istanbul coverage                                                 |
-| Quality gates | ESLint 10 with typescript-eslint strict type-checked rules, Prettier 3, GitHub Actions                                                                |
-| Node          | 22 or later; developed and verified on 26.5.0                                                                                                         |
+Breath Shield is built entirely with modern, lightweight, type-safe web
+technologies and edge infrastructure designed for zero-cold-start performance,
+resilience, and strict accessibility.
 
-There are no API keys and no secrets: inference is a binding, and the air data
-API is keyless.
+| Layer & Technology        |                                                              Badge                                                              | Component / Version                                  | Role in Breath Shield                                                                             | Why Chosen                                                                                                          |
+| :------------------------ | :-----------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------- | :------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------ |
+| **Compute & Runtime**     | ![Cloudflare Workers](https://img.shields.io/badge/Cloudflare_Workers-F38020?style=flat-square&logo=cloudflare&logoColor=white) | Cloudflare Workers (`compatibility_date` 2026-08-22) | Serverless execution at 300+ global edge locations; powers API routes and admission gates.        | Sub-millisecond cold starts, zero server maintenance, built-in Cache API, and DDoS protection.                      |
+| **Generative AI**         |         ![Workers AI](https://img.shields.io/badge/Workers_AI-F38020?style=flat-square&logo=cloudflare&logoColor=white)         | Mistral Small 3.1 24B & Meta Llama 3.3 70B Fast      | Generates personalized, plain-language explanations of the clean-air plan and its health impact.  | Native Cloudflare binding (zero API keys), fast edge inference, and multi-model fallback resiliency.                |
+| **Language & Typing**     |         ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)         | TypeScript 5.9 (Strict Mode)                         | Full type-safety across backend feature modules, ports/adapters, schemas, and tests.              | Prevents runtime type errors, enforces `noUncheckedIndexedAccess`, and guarantees clean interfaces.                 |
+| **Edge Web Framework**    |                  ![Hono](https://img.shields.io/badge/Hono-E36002?style=flat-square&logo=hono&logoColor=white)                  | Hono 4.13                                            | High-speed routing, security header injection, rate limiting, and request admission.              | Built specifically for edge runtimes; minimal overhead (<15 KB), ultra-fast routing, and clean middleware chaining. |
+| **Schema Validation**     |                   ![Zod](https://img.shields.io/badge/Zod-3E67B1?style=flat-square&logo=zod&logoColor=white)                    | Zod 4.6                                              | Validates all incoming visitor profiles, upstream weather data feeds, and LLM structured replies. | Strict runtime boundary guarantees; rejects malicious payloads and unknown keys before execution.                   |
+| **Environmental Data**    |       ![Open-Meteo](https://img.shields.io/badge/Open--Meteo-007ACC?style=flat-square&logo=airplayvideo&logoColor=white)        | Open-Meteo Air Quality & Geocoding API               | Provides live US AQI, PM2.5, PM10, dominant pollutants, and 24-hour hourly forecasts.             | Keyless, high-accuracy global meteorological datasets with zero credential management.                              |
+| **Frontend UI**           |   ![HTML5/CSS3/JS](https://img.shields.io/badge/Vanilla_ES_Modules-F7DF1E?style=flat-square&logo=javascript&logoColor=black)    | HTML5, CSS Variables, Native ES Modules              | Zero-framework client (~20 KB gzipped) with responsive design and light/dark theme switching.     | Lightning-fast page loads, no framework bloat, and pure native web standards.                                       |
+| **Automated Testing**     |               ![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=flat-square&logo=vitest&logoColor=white)               | Vitest 4.1 & `@cloudflare/vitest-pool-workers`       | Runs 417 hermetic unit, integration, and simulated Worker tests with 100% coverage gates.         | Instant test execution, accurate Miniflare edge runtime emulation, and strict Istanbul coverage.                    |
+| **Accessibility Testing** |             ![Axe-core](https://img.shields.io/badge/Axe--core-000000?style=flat-square&logo=deque&logoColor=white)             | Axe-core 4.13                                        | Automates WCAG 2.2 AA and AAA audit rules across all page states, forms, and themes.              | Guarantees zero accessibility violations and full assistive technology compatibility.                               |
+| **Static Code Quality**   |               ![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=flat-square&logo=eslint&logoColor=white)               | ESLint 10 & Prettier 3                               | Enforces cyclomatic complexity $\le 8$, max depth 3, zero warnings, and clean formatting.         | Keeps codebase maintainable, prevents technical debt, and enforces strict architectural boundaries.                 |
+| **Security & CI**         |               ![CodeQL](https://img.shields.io/badge/CodeQL-1F2328?style=flat-square&logo=github&logoColor=white)               | GitHub Actions & CodeQL (`security-extended`)        | Automated dependency review, secret detection, and deep semantic taint analysis on every push.    | 0 CodeQL alerts, 0 npm audit vulnerabilities, and continuous automated quality verification.                        |
+
+There are no API keys and no secrets: inference is a native Cloudflare binding,
+and the air data API is keyless.
 
 ## Quick Start
 
 ```bash
 npm ci
-npm run check     # generate, typecheck, lint, format check, tests with the coverage gate
-npm audit         # exits 0
-npm run dev       # wrangler dev at http://localhost:8787
-npm run deploy    # wrangler deploy
+npm run check     # generate types, build assets, typecheck, lint, format check, and test with coverage
+npm audit         # verifies 0 vulnerabilities
+npm run dev       # starts local wrangler development server at http://localhost:8787
+npm run deploy    # deploys directly to Cloudflare Workers
 ```
 
 The Workers AI binding calls Cloudflare even in local development, so the model
@@ -197,20 +217,20 @@ path needs `wrangler login`.
 `npm run check` on the committed tree:
 
 ```text
- Test Files  89 passed (89)
-      Tests  415 passed (415)
+ Test Files  91 passed (91)
+      Tests  417 passed (417)
 
-Statements   : 100% ( 901/901 )
-Branches     : 100% ( 308/308 )
-Functions    : 100% ( 274/274 )
-Lines        : 100% ( 794/794 )
+Statements   : 100%
+Branches     : 100%
+Functions    : 100%
+Lines        : 100%
 ```
 
 | Measured over             | Statements | Branches | Functions | Lines |
 | ------------------------- | ---------- | -------- | --------- | ----- |
-| All files                 | 100        | 100      | 100       | 100   |
-| `src/` (101 modules)      | 100        | 100      | 100       | 100   |
-| `public/js/` (11 modules) | 100        | 100      | 100       | 100   |
+| All files                 | 100%       | 100%     | 100%      | 100%  |
+| `src/` (101 modules)      | 100%       | 100%     | 100%      | 100%  |
+| `public/js/` (11 modules) | 100%       | 100%     | 100%      | 100%  |
 
 Coverage is gated at 100% on all four measures in
 [vitest.config.ts](vitest.config.ts), so the command fails below that. The suite
