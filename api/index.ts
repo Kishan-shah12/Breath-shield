@@ -49,7 +49,38 @@ export function composeVercel(): AppDeps {
 
 const app = createApp(composeVercel());
 
+/** Vercel Edge Function configuration. */
+export const config = {
+  runtime: 'edge',
+};
+
+function resolveTargetUrl(request: Request): URL {
+  const url = new URL(request.url);
+  const host = request.headers.get('x-forwarded-host');
+  const proto = request.headers.get('x-forwarded-proto');
+  const matched = request.headers.get('x-matched-path') ?? request.headers.get('x-invoke-path');
+  if (proto) {
+    url.protocol = `${proto}:`;
+  }
+  if (host) {
+    url.host = host;
+  }
+  if (matched && url.pathname === '/api') {
+    url.pathname = matched;
+  }
+  return url;
+}
+
+/**
+ * Normalizes the incoming Vercel Edge request to ensure the URL origin and path
+ * reflect the public client-facing request even when behind Vercel's rewrite proxy.
+ */
+function normalizeRequest(request: Request): Request {
+  const url = resolveTargetUrl(request);
+  return url.toString() === request.url ? request : new Request(url.toString(), request);
+}
+
 /** The Vercel request handler for standard Fetch API / Edge runtime. */
 export default function handler(request: Request): Response | Promise<Response> {
-  return app.fetch(request);
+  return app.fetch(normalizeRequest(request));
 }
