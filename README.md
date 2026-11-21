@@ -201,6 +201,8 @@ and the air data API is keyless.
 
 ## Quick Start
 
+### Cloudflare Workers Deployment
+
 ```bash
 npm ci
 npm run check     # generate types, build assets, typecheck, lint, format check, and test with coverage
@@ -211,6 +213,17 @@ npm run deploy    # deploys directly to Cloudflare Workers
 
 The Workers AI binding calls Cloudflare even in local development, so the model
 path needs `wrangler login`.
+
+### Vercel Deployment
+
+Breath Shield is pre-configured for one-click static edge hosting on Vercel:
+
+1. Import this repository into Vercel.
+2. The build command (`npm run build`) and output directory (`public`) are
+   pre-configured in `vercel.json`.
+3. Deploy!
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Kishan-shah12/Breath-shield)
 
 ## Testing Verification
 
@@ -357,6 +370,14 @@ uses `aria-disabled` while a request is in flight, so it stays focusable.
 - **A group changes partly.** Community travel figures assume 30% of the group
   takes part.
 - **General guidance only.** The assistant does not diagnose or prescribe.
+
+## Founder & Author
+
+**Kishan Sah**
+
+- **Role:** Founder, Lead Architect & Developer of Breath Shield
+- **Connect:**
+  [LinkedIn Profile](https://www.linkedin.com/in/kishan-sah-b97a73315/)
 
 ## Licence
 
