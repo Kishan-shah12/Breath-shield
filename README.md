@@ -214,17 +214,6 @@ npm run deploy    # deploys directly to Cloudflare Workers
 The Workers AI binding calls Cloudflare even in local development, so the model
 path needs `wrangler login`.
 
-### Vercel Deployment
-
-Breath Shield is pre-configured for one-click static edge hosting on Vercel:
-
-1. Import this repository into Vercel.
-2. The build command (`npm run build`) and output directory (`public`) are
-   pre-configured in `vercel.json`.
-3. Deploy!
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Kishan-shah12/Breath-shield)
-
 ## Testing Verification
 
 `npm run check` on the committed tree:
