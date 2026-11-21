@@ -18,11 +18,11 @@ it('starts light, switches to dark and back, and remembers the choice', async ()
   toggle().click();
   expect(document.documentElement.dataset.theme).toBe('dark');
   expect(toggle().getAttribute('aria-pressed')).toBe('true');
-  expect(storage.getItem('saaf-saans-theme')).toBe('dark');
+  expect(storage.getItem('breath-shield-theme')).toBe('dark');
   await loadApp({ storage });
   expect(document.documentElement.dataset.theme).toBe('dark');
   toggle().click();
-  expect(storage.getItem('saaf-saans-theme')).toBe('light');
+  expect(storage.getItem('breath-shield-theme')).toBe('light');
 });
 
 it('still works where storage is unavailable', async () => {

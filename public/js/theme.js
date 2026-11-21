@@ -2,7 +2,7 @@
 /** The light/dark toggle. Light is the default; a choice is remembered on this device. */
 import { $ } from './dom.js';
 
-const KEY = 'saaf-saans-theme';
+const KEY = 'breath-shield-theme';
 
 /** The remembered theme, or light when storage is unavailable or empty. */
 function stored() {

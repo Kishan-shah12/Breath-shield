@@ -20,7 +20,7 @@ it('asks the first model once when its reply passes', async () => {
   const narrative = await modelPlanGenerator(text, recordingLogger()).generate(brief);
   expect(narrative.source).toBe('model');
   expect(text.requests.map((r) => r.model)).toEqual([firstModel]);
-  expect(text.requests[0]?.prompt).toMatch(/<<<SAAF_[0-9a-f]{32}\n/);
+  expect(text.requests[0]?.prompt).toMatch(/<<<SHIELD_[0-9a-f]{32}\n/);
 });
 
 it('asks the second model with the reasons when the first reply is rejected', async () => {

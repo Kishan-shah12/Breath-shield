@@ -8,7 +8,7 @@ import { appWith } from './support/http';
 
 it('reports liveness and the public limits', async () => {
   const res = await appWith().fetch(new Request('https://saaf.test/api/health'));
-  expect(await res.json()).toEqual({ status: 'ok', service: 'saaf-saans', limits: LIMITS });
+  expect(await res.json()).toEqual({ status: 'ok', service: 'breath-shield', limits: LIMITS });
 });
 
 it('answers 404 as JSON for unknown API paths and methods', async () => {

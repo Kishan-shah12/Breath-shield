@@ -19,5 +19,5 @@ export function fenceUntrusted(text: string, nonce: string): string {
 
 /** An unguessable delimiter for {@link fenceUntrusted}: 122 random bits as 32 hex digits. */
 export function makeNonce(): string {
-  return `SAAF_${crypto.randomUUID().replace(/-/g, '')}`;
+  return `SHIELD_${crypto.randomUUID().replace(/-/g, '')}`;
 }

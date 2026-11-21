@@ -40,7 +40,7 @@ it.each([
   [{ status: 500, body: 'not an object' }, 'The request failed (500). Please try again.'],
   [{ status: 502, body: { issues: 'nope' } }, 'The request failed (502). Please try again.'],
   [{ status: 200, body: { unexpected: true } }, 'The reply could not be read. Please try again.'],
-  [new Error('offline'), 'Could not reach Saaf Saans. Check your connection and try again.'],
+  [new Error('offline'), 'Could not reach Breath Shield. Check your connection and try again.'],
 ])('explains a failed request in words: %#', async (reply, message) => {
   stubFetch(reply);
   inputEl('place').value = 'Delhi';

@@ -19,6 +19,6 @@ it('defangs control tokens and strips the nonce, so text cannot close its own fe
 
 it('is unguessable: 32 hex digits, different every time', () => {
   const a = makeNonce();
-  expect(a).toMatch(/^SAAF_[0-9a-f]{32}$/);
+  expect(a).toMatch(/^SHIELD_[0-9a-f]{32}$/);
   expect(makeNonce()).not.toBe(a);
 });

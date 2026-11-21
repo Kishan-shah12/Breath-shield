@@ -1,8 +1,8 @@
-# Saaf Saans
+# Breath Shield
 
-**Saaf Saans** ("clean breath") is a GenAI-powered assistant that helps families
-and communities live through severe winter smog. You tell it where you live and
-how you live; it reads the live air for your city, builds a plan of low-emission
+**Breath Shield** is a GenAI-powered assistant that helps families and
+communities live through severe winter smog. You tell it where you live and how
+you live; it reads the live air for your city, builds a plan of low-emission
 daily routines, indoor air quality hacks and sustainable alternatives, and shows
 the direct impact of every choice, worked out by fixed formulas from cited
 factors. Generative AI explains the plan; the figures come from the engine.

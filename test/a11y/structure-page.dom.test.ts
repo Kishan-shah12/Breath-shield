@@ -11,7 +11,7 @@ beforeAll(() => {
 
 it('declares its language and a descriptive title', () => {
   expect(html).toMatch(/<html lang="en">/);
-  expect(document.title).toContain('Saaf Saans');
+  expect(document.title).toContain('Breath Shield');
 });
 
 it('has exactly one h1, and headings that never skip a level', () => {

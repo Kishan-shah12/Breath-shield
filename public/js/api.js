@@ -70,7 +70,7 @@ export async function postJson(path, body) {
     throw new ApiError([
       {
         field: 'form',
-        message: 'Could not reach Saaf Saans. Check your connection and try again.',
+        message: 'Could not reach Breath Shield. Check your connection and try again.',
       },
     ]);
   }

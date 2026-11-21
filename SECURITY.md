@@ -4,7 +4,7 @@ What the service protects, what it assumes, and where each control lives.
 
 ## Threat model
 
-Saaf Saans has no accounts, no secrets and no database. What an attacker can
+Breath Shield has no accounts, no secrets and no database. What an attacker can
 reach is: the two POST routes, the text they carry to a language model, the
 replies of two upstream APIs, and the page that renders the result. The assets
 worth protecting are a visitor's profile (family make-up, health, location), the
@@ -134,7 +134,7 @@ server-side from the validated profile on every request.
 ## 7. Reporting
 
 Please report a vulnerability through
-<https://github.com/uditjainstjis/saaf-saans/security/advisories/new>. Do not
+<https://github.com/Kishan-shah12/Breath-shield/security/advisories/new>. Do not
 include real personal details in a report.
 [/.well-known/security.txt](public/.well-known/security.txt) carries the same
 contact.

@@ -1,7 +1,7 @@
 {
-  "name": "saaf-saans",
+  "name": "breath-shield",
   "version": "1.0.0",
-  "description": "Saaf Saans (clean breath): a GenAI-powered urban air quality assistant for families and communities facing severe winter smog. Cloudflare Workers + Workers AI + Open-Meteo.",
+  "description": "Breath Shield: a GenAI-powered urban air quality assistant for families and communities facing severe winter smog. Cloudflare Workers + Workers AI + Open-Meteo.",
   "scripts": {
     "build": "node scripts/build-assets.mjs",
     "dev": "wrangler dev",

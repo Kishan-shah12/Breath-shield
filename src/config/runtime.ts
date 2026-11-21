@@ -5,7 +5,7 @@
  */
 
 /** The name this service reports in its health check. */
-export const SERVICE_NAME = 'saaf-saans';
+export const SERVICE_NAME = 'breath-shield';
 
 /** Upper bound on one Open-Meteo call; past it the offline fallback answers. */
 export const UPSTREAM_TIMEOUT_MS = 4000;

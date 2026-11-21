@@ -5,7 +5,7 @@
  */
 import type { Cache } from './ports';
 
-const ORIGIN = 'https://cache.saaf-saans.internal';
+const ORIGIN = 'https://cache.breath-shield.internal';
 const requestFor = (key: string): Request => new Request(`${ORIGIN}/${key}`);
 
 /** As much of a Cache API store as the adapter calls. */
