@@ -127,9 +127,8 @@ server-side from the validated profile on every request.
   committed.
 - `npm audit` reports 0 vulnerabilities, and CI fails on any advisory at any
   severity, dev dependencies included.
-- Every GitHub Action is pinned to a commit SHA; Dependabot keeps the pins and
-  the packages current; CodeQL runs the `security-extended` queries; pull
-  requests get a dependency review.
+- Every GitHub Action is pinned to a commit SHA; CodeQL runs the
+  `security-extended` queries; pull requests get a dependency review.
 
 ## 7. Reporting
 
